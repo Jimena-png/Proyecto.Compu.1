@@ -50,17 +50,29 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white',
-             xlab = 'Waiting time to next eruption (in mins)',
-             main = 'Histogram of waiting times')
-    })
+  #salda 1
+  output$grafico1 <- renderPlot({
+    # generate bins based on input$bins from ui.R
+    x    <- nhanes.reducida[[input$Entrada1]]
+    bins <- seq(min(x), max(x), length.out = input$Entrada2 + 1)
+    
+    # draw the histogram with the specified number of bins
+    hist(x, breaks = bins, col = 'lightpink', border = 'black',
+         xlab = 'personas',
+         ylab = 'Frecuencia',
+         main = 'Histograma de encuesta a hogares')
+  })
+  output$grafico2 <- renderPlot({
+    # generate bins based on input$bins from ui.R
+    x    <- nhanes.reducida[[input$Entrada1]]
+    bins <- seq(min(x), max(x), length.out = input$Entrada2 + 1)
+    
+    # draw the histogram with the specified number of bins
+    boxplot(x, breaks = bins, col = 'lightpink', border = 'black',
+            xlab = 'personas',
+            ylab = 'Frecuencia',
+            main = 'Diagrama de cajas de encuesta a hogares')
+  })
 }
 
 # Run the application 
