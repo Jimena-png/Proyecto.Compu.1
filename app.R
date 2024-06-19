@@ -11,25 +11,41 @@ library(shiny)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("distPlot")
-        )
+  
+  # Application title
+  titlePanel("Encuesta a hogares"),
+  
+  # Sidebar with a slider input for number of bins 
+  sidebarLayout(
+    sidebarPanel(
+      #elemento 1: variable a seleccionar
+      fluidPage(
+        
+        # Copy the line below to make a select box 
+        selectInput(inputId = "Entrada1",
+                    label = h3("Variable a seleccionar"), 
+                    choices = names(nhanes.reducida[,6:8]), 
+                    selected = names(nhanes.reducida[7])),
+        
+        hr(),
+        fluidRow(column(3, verbatimTextOutput("value")))
+        
+      ),
+      
+      #elemento 2
+      sliderInput("Entrada2",
+                  "Numero de intervalos:",
+                  min = 1,
+                  max = 60,
+                  value = 30)
+    ),
+    
+    # Show a plot of the generated distribution
+    mainPanel(
+      plotOutput("grafico1"),
+      plotOutput("grafico2")
     )
+  )
 )
 
 # Define server logic required to draw a histogram
